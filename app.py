@@ -106,11 +106,11 @@ def request_batch(api_key, model_name, temperature, top_p, frequency_penalty, pr
     jsonl_request_file = file_path['jsonl'] + file_name + '_req.jsonl'
     if not to_batch_jsonl(df, jsonl_request_file, system_prompt, user_prompt, model_name, URL, options, json_mode=False):
         return gr.Error(f"写入Jsonl文件失败")
-    batch_id = start_batch_job(jsonl_request_file)
+    batch_id = start_batch_job(jsonl_request_file, client)
     if not batch_id:
         return
     jsonl_response_file = file_path['jsonl'] + file_name + '_res.jsonl'
-    if not get_batch_results(batch_id, jsonl_response_file):
+    if not get_batch_results(batch_id, jsonl_response_file, client):
         return
     excel_file_out = file_path['output'] + file_name + '.xlsx'
     if format_batch_results(df, jsonl_response_file, excel_file_out, output_column):
@@ -160,5 +160,4 @@ with gr.Blocks() as demo:
 
 if __name__ == "__main__":
     dotenv.load_dotenv()
-    client = OpenAI()
     demo.launch()

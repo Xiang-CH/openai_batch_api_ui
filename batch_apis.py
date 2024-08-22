@@ -7,8 +7,6 @@ import gradio as gr
 import numpy as np
 from openai import OpenAI
 
-
-client = OpenAI()
 os.chdir(os.path.dirname(__file__))
 
 def get_params_from_prompt_list(prompt):
@@ -55,7 +53,7 @@ def get_batch_line(id, messages, model, url, options, json_output=False):
     return data
 
 # 批量请求
-def start_batch_job(file_in):
+def start_batch_job(file_in, client):
     batch_input_file = client.files.create(
         file=open(file_in, "rb"),
         purpose="batch"
@@ -81,7 +79,7 @@ def start_batch_job(file_in):
     return batch_process.id
 
 # 获取批量请求结果
-def get_batch_results(batch_id, file_out, progress=gr.Progress()):
+def get_batch_results(batch_id, file_out,client, progress=gr.Progress()):
     batch = client.batches.retrieve(batch_id)
     while batch.status == "validating":
         time.sleep(2)
