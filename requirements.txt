@@ -1,0 +1,5 @@
+gradio==4.42.0
+numpy==1.26.4
+openai==1.42.0
+pandas==2.0.3
+python-dotenv==1.0.1
