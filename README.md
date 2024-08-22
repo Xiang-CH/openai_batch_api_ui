@@ -1,5 +1,6 @@
 ## OpenAI 批处理请求 UI
-![alt text](image.png)
+![Screenshot 2024-08-22 at 16 11 03](https://github.com/user-attachments/assets/3a12cc74-8cf8-41ca-a066-64917475eb56)
+
 ### 使用方法
 
 1. 安装依赖
